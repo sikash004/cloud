@@ -1,0 +1,152 @@
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse:collapse;
+}
+body{
+  background-image: url("Corona.png");
+  background-repeat: no-repeat; 
+  background-position: right top;
+  margin-right: 200px;
+  background-attachment: fixed;
+  background-color: lightblue;
+}
+
+.main{
+    display: flex;
+}
+.right{
+  flex: 1;
+}
+
+.left{
+  flex:1;
+}
+
+th, td {
+  padding: 5px;
+}
+.hi{
+  background-color: rgb(16, 222, 29);
+}
+.rowss{
+  background-color: white;
+}
+
+.rowss:hover {
+  background-color: yellow;
+}
+</style>
+</head>
+<body >
+<div class="main">
+<div class="left">
+  <h1>State Wise Cases</h1>
+  <table id="demo">
+    <script type="text/javascript">
+      function viewData(temp){
+    // console.log(temp[0].getElementsByTagName("name")[0].childNodes[0].nodeValue);
+  // console.log(temp);
+  console.log(temp);
+      console.log(temp[0].getElementsByTagName("name")[0].childNodes[0].nodeValue);
+
+}
+    </script>
+
+  </table>
+
+</div>
+
+<div class="right">
+  <h1>Detailed Report</h1>
+<!--        <button onclick="viewData('hi')">View</button>-->
+  <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">State:</h2>
+    <h2 style="display: inline;">Tamilnadu</h2>
+  </div>
+    <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">Total Tested:</h2>
+    <h2 style="display: inline;">100</h2>
+  </div>
+  <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">Positive:</h2>
+    <h2 style="display: inline;">80</h2>
+  </div>
+  <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">Negative:</h2>
+    <h2 style="display: inline;">10</h2>
+  </div>
+  <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">Under Process:</h2>
+    <h2 style="display: inline;">10</h2>
+  </div>
+  <div >
+    <h2 style="font-style: italic;font-weight: 100;display: inline; ">Discharged:</h2>
+    <h2 style="display: inline;">10</h2>
+  </div>
+</div>
+</div>
+<style type="text/css">
+  .footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+</style>
+
+
+<div class="footer">
+  <p>Stay Home!!! Stay Safe!!!</p>
+</div>
+
+<script>
+  var xmlDoc;
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+// console.log(xmlhttp.responseXML);
+    if (this.readyState == 4 && this.status == 200) {
+      myFunction(this);
+    }
+  };
+  xmlhttp.open("GET", "covid.xml",true);
+  xmlhttp.send();
+}
+loadXMLDoc();
+
+function myFunction(xml) {
+  // var temp = [];
+  var i;
+   xmlDoc = xml.responseXML;
+  var table="<tr class='hi'><th>State</th><th>Active</th><th>Death</th><th>Discharged</th><th>Total</th></tr>";
+  var x = xmlDoc.getElementsByTagName("state");
+  console.log(x);
+  for (i = 0; i <x.length; i++) {
+    // temp.push(x[i].getElementsByTagName("district"));
+    var temp = x[i].getElementsByTagName("district");
+    console.log(temp[0].getElementsByTagName("name")[0].childNodes[0].nodeValue);
+    // console.log(tt);
+    table += "<tr class='rowss'><td>" +
+    x[i].getElementsByTagName("name")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("active")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("death")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("discharged")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("total")[0].childNodes[0].nodeValue +
+    "</td></tr>"; 
+  }
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
+
+</body>
+</html> 
